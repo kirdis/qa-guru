@@ -1,6 +1,9 @@
 package com.demoqa.models;
 
-public class PracticeFormTestData {
+import java.io.File;
+import java.util.ArrayList;
+
+public class AutomationPracticeFormData {
     private String name;
     private String lastName;
     private Gender gender;
@@ -9,17 +12,18 @@ public class PracticeFormTestData {
     private String birthDay;
     private String birthMonth;
     private String birthYear;
-    private String subject;
-    private String hobby;
+    private ArrayList<String> subjects;
+    private ArrayList<String> hobbies;
     private String address;
     private String city;
     private String state;
+    private File photo;
 
     public String getName() {
         return name;
     }
 
-    public PracticeFormTestData withName(String name) {
+    public AutomationPracticeFormData withName(String name) {
         this.name = name;
         return this;
     }
@@ -28,7 +32,7 @@ public class PracticeFormTestData {
         return lastName;
     }
 
-    public PracticeFormTestData withLastName(String lastName) {
+    public AutomationPracticeFormData withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -37,7 +41,7 @@ public class PracticeFormTestData {
         return email;
     }
 
-    public PracticeFormTestData withEmail(String email) {
+    public AutomationPracticeFormData withEmail(String email) {
         this.email = email;
         return this;
     }
@@ -46,7 +50,7 @@ public class PracticeFormTestData {
         return phone;
     }
 
-    public PracticeFormTestData withPhone(String phone) {
+    public AutomationPracticeFormData withPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -55,7 +59,7 @@ public class PracticeFormTestData {
         return birthDay;
     }
 
-    public PracticeFormTestData withBirthDay(String userBirthDay) {
+    public AutomationPracticeFormData withBirthDay(String userBirthDay) {
         this.birthDay = userBirthDay;
         return this;
     }
@@ -64,7 +68,7 @@ public class PracticeFormTestData {
         return birthMonth;
     }
 
-    public PracticeFormTestData withBirthMonth(String userBirthMonth) {
+    public AutomationPracticeFormData withBirthMonth(String userBirthMonth) {
         this.birthMonth = userBirthMonth;
         return this;
     }
@@ -73,7 +77,7 @@ public class PracticeFormTestData {
         return birthYear;
     }
 
-    public PracticeFormTestData withBirthYear(String birthYear) {
+    public AutomationPracticeFormData withBirthYear(String birthYear) {
         this.birthYear = birthYear;
         return this;
     }
@@ -82,26 +86,26 @@ public class PracticeFormTestData {
         return gender.getGender();
     }
 
-    public PracticeFormTestData withGender(Gender gender) {
+    public AutomationPracticeFormData withGender(Gender gender) {
         this.gender = gender;
         return this;
     }
 
-    public String getSubject() {
-        return subject;
+    public ArrayList<String> getSubjects() {
+        return subjects;
     }
 
-    public PracticeFormTestData withSubject(String subject) {
-        this.subject = subject;
+    public AutomationPracticeFormData withSubject(ArrayList<String> subjects) {
+        this.subjects = subjects;
         return this;
     }
 
-    public String getHobby() {
-        return hobby;
+    public ArrayList<String> getHobbies() {
+        return hobbies;
     }
 
-    public PracticeFormTestData withHobby(String hobby) {
-        this.hobby = hobby;
+    public AutomationPracticeFormData withHobbes(ArrayList<String> hobbies) {
+        this.hobbies = hobbies;
         return this;
     }
 
@@ -109,7 +113,7 @@ public class PracticeFormTestData {
         return address;
     }
 
-    public PracticeFormTestData withAddress(String address) {
+    public AutomationPracticeFormData withAddress(String address) {
         this.address = address;
         return this;
     }
@@ -118,7 +122,7 @@ public class PracticeFormTestData {
         return city;
     }
 
-    public PracticeFormTestData withCity(String city) {
+    public AutomationPracticeFormData withCity(String city) {
         this.city = city;
         return this;
     }
@@ -127,8 +131,17 @@ public class PracticeFormTestData {
         return state;
     }
 
-    public PracticeFormTestData withState(String state) {
+    public AutomationPracticeFormData withState(String state) {
         this.state = state;
+        return this;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public AutomationPracticeFormData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 }
