@@ -1,5 +1,7 @@
 package com.demoqa.models;
 
+import java.util.Random;
+
 public enum Gender {
     MALE("Male"),
     FEMALE("Female"),
@@ -13,5 +15,10 @@ public enum Gender {
 
     public String getGender() {
         return gender;
+    }
+
+    public static Gender getRandomGender() {
+        Random random = new Random();
+        return values()[random.nextInt(values().length)];
     }
 }

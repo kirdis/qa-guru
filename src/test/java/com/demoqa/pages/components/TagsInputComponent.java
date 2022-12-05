@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import static com.codeborne.selenide.Selectors.byText;
 
 public class TagsInputComponent {
-    public TagsInputComponent setValues(SelenideElement input, ArrayList<String> values) {
-        values.forEach(value -> input.setValue(value).pressEnter());
+    public TagsInputComponent setValues(SelenideElement input, String value) {
+        input.setValue(value).pressEnter();
         return this;
     }
 }

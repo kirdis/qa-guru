@@ -1,10 +1,10 @@
 package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import com.demoqa.models.AutomationPracticeFormData;
+import com.demoqa.models.UserData;
 import com.demoqa.pages.components.*;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -19,7 +19,6 @@ public class AutomationPracticeFormPage {
     private DropDownComponent dropDownComponent = new DropDownComponent();
     private CheckBoxComponent checkBoxComponent = new CheckBoxComponent();
     private TagsInputComponent tagsInputComponent = new TagsInputComponent();
-
 
     private SelenideElement firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
@@ -44,44 +43,52 @@ public class AutomationPracticeFormPage {
         return this;
     }
 
-    public AutomationPracticeFormPage setFirstName(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setFirstName(UserData testData) {
         firstNameInput.setValue(testData.getName());
         return this;
     }
 
-    public AutomationPracticeFormPage setLastName(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setLastName(UserData testData) {
         lastNameInput.setValue(testData.getLastName());
         return this;
     }
 
-    public AutomationPracticeFormPage setEmail(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setEmail(UserData testData) {
         emailInput.setValue(testData.getEmail()).pressEnter();
         return this;
     }
 
-    public AutomationPracticeFormPage setGenderInput(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setGenderInput(UserData testData) {
         genderInput.$(byText(testData.getGender())).click();
         return this;
     }
 
-    public AutomationPracticeFormPage setPhoneInput(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setPhoneInput(UserData testData) {
         phoneInput.setValue(testData.getPhone());
         return this;
     }
 
-    public AutomationPracticeFormPage setBirthDate(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setBirthDate(UserData testData) {
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.setTime(testData.getBirthDay());
+
+        int year = birthDate.get(Calendar.YEAR);
+        String month  = birthDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH );
+        int day = birthDate.get(Calendar.DAY_OF_MONTH);
+
+
         dateOfBirthInput.click();
-        calendarComponent.setDay(testData.getBirthDay(), testData.getBirthMonth(), testData.getBirthYear());
+        calendarComponent.setDay(Integer.toString(day), month, Integer.toString(year));
         return this;
     }
 
-    public AutomationPracticeFormPage setSubject(AutomationPracticeFormData testData) {
-        tagsInputComponent.setValues(subjectsInput, testData.getSubjects());
+    public AutomationPracticeFormPage setSubject(UserData testData) {
+        tagsInputComponent.setValues(subjectsInput, testData.getSubject());
         return this;
     }
 
-    public AutomationPracticeFormPage setHobby(AutomationPracticeFormData testData) {
-        checkBoxComponent.setValues(hobbyInput, testData.getHobbies());
+    public AutomationPracticeFormPage setHobby(UserData testData) {
+        checkBoxComponent.setValue(hobbyInput, testData.getHobby());
         return this;
     }
 
@@ -90,24 +97,24 @@ public class AutomationPracticeFormPage {
         return this;
     }
 
-    public AutomationPracticeFormPage setCity(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setCity(UserData testData) {
         cityInput.click();
         dropDownComponent.chooseValue(testData.getCity());
         return this;
     }
 
-    public AutomationPracticeFormPage setState(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setState(UserData testData) {
         stateInput.click();
         dropDownComponent.chooseValue(testData.getState());
         return this;
     }
 
-    public AutomationPracticeFormPage setAddressInput(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setAddressInput(UserData testData) {
         addressInput.setValue(testData.getAddress());
         return this;
     }
 
-    public AutomationPracticeFormPage setPhoto(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage setPhoto(UserData testData) {
         pictureLoader.uploadFile(testData.getPhoto());
         return this;
     }
@@ -123,11 +130,11 @@ public class AutomationPracticeFormPage {
     }
 
     public AutomationPracticeFormPage checkMultipleResults(String title, ArrayList<String> values) {
-        resultsTableComponent.checkResult(title, values.stream().collect(Collectors.joining(", ")).toString());
+        resultsTableComponent.checkResult(title, String.join(", ", values));
         return this;
     }
 
-    public AutomationPracticeFormPage fillForm(AutomationPracticeFormData testData) {
+    public AutomationPracticeFormPage fillForm(UserData testData) {
         setFirstName(testData);
         setLastName(testData);
         setEmail(testData);

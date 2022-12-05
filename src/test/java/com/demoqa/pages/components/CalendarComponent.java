@@ -1,7 +1,5 @@
 package com.demoqa.pages.components;
 
-import com.demoqa.models.AutomationPracticeFormData;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;

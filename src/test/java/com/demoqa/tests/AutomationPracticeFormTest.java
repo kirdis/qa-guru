@@ -2,14 +2,19 @@ package com.demoqa.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.demoqa.models.Gender;
-import com.demoqa.models.AutomationPracticeFormData;
+import com.demoqa.models.UserData;
+import com.demoqa.models.Hobby;
+import com.demoqa.models.Subject;
 import com.demoqa.pages.AutomationPracticeFormPage;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static com.demoqa.utils.RandomUtils.getRandomCity;
+import static com.demoqa.utils.RandomUtils.getRandomState;
 
 public class AutomationPracticeFormTest {
 
@@ -24,21 +29,30 @@ public class AutomationPracticeFormTest {
 
     @Test
     void fillFormTest() {
-        AutomationPracticeFormData testData = new AutomationPracticeFormData()
-                .withName("Natalia")
-                .withLastName("LastName")
-                .withEmail("email@test.ru")
-                .withPhone("8005553535")
-                .withBirthYear("1990")
-                .withBirthMonth("June")
-                .withBirthDay("26")
-                .withGender(Gender.FEMALE)
-                .withHobbes(new ArrayList<>(List.of("Music")))
-                .withSubject(new ArrayList<>(List.of("English", "Maths")))
-                .withAddress("Nestora Zuchnogo, 19, 18")
-                .withState("NCR")
-                .withPhoto(new File("src//test//resources//test.png"))
-                .withCity("Delhi");
+        Faker faker = new Faker();
+        String randomState = getRandomState(),
+               randomCity =getRandomCity(randomState);
+
+        UserData testData = new UserData()
+                .withName(faker.name().firstName())
+                .withLastName(faker.name().lastName())
+                .withEmail(faker.internet().emailAddress())
+                .withPhone(faker.number().digits(10))
+                .withBirthDay(faker.date().birthday(18, 90))
+                .withGender(Gender.getRandomGender())
+                .withHobbes(Hobby.getRandomHobby())
+                .withSubject(Subject.getRandomSubject())
+                .withAddress(faker.address().streetAddress())
+                .withState(randomState)
+                .withCity(randomCity)
+                .withPhoto(new File("src//test//resources//test.png"));
+
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.setTime(testData.getBirthDay());
+
+        int year = birthDate.get(Calendar.YEAR);
+        String month  = birthDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH );
+        int day = birthDate.get(Calendar.DAY_OF_MONTH);
 
         automationPracticeFormPage.openPage("/automation-practice-form")
                 .fillForm(testData)
@@ -50,9 +64,9 @@ public class AutomationPracticeFormTest {
                 .checkResult("Student Email", testData.getEmail())
                 .checkResult("Gender", testData.getGender())
                 .checkResult("Mobile", testData.getPhone())
-                .checkResult("Date of Birth", testData.getBirthDay() + " " + testData.getBirthMonth() + "," + testData.getBirthYear())
-                .checkMultipleResults("Subjects", testData.getSubjects())
-                .checkMultipleResults("Hobbies", testData.getHobbies())
+                .checkResult("Date of Birth", day + " " + month + "," + year)
+                .checkResult("Subjects", testData.getSubject())
+                .checkResult("Hobbies", testData.getHobby())
                 .checkResult("Picture", "test.png")
                 .checkResult("Address", testData.getAddress())
                 .checkResult("State and City", testData.getState() + " " + testData.getCity());
