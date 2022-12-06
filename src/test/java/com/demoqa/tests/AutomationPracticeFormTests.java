@@ -16,7 +16,7 @@ import java.util.*;
 import static com.demoqa.utils.RandomUtils.getRandomCity;
 import static com.demoqa.utils.RandomUtils.getRandomState;
 
-public class AutomationPracticeFormTest {
+public class AutomationPracticeFormTests {
 
     AutomationPracticeFormPage automationPracticeFormPage = new AutomationPracticeFormPage();
 
