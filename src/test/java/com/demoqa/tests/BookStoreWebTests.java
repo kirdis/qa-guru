@@ -17,7 +17,6 @@ import static com.codeborne.selenide.Selenide.open;
 public class BookStoreWebTests {
     @BeforeAll
     static void setUp() {
-        //Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
     }

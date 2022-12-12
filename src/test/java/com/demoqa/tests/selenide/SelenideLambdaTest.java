@@ -20,7 +20,6 @@ public class SelenideLambdaTest {
 
     @BeforeAll
     static void setUp() {
-        Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://github.com/";
     }
